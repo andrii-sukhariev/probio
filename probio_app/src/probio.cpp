@@ -66,8 +66,8 @@ int main()
         const std::vector<pGameObject>& game_objects = world.getGameObjects();
         for (auto game_object : game_objects)
         {
-            bool is_collides = collision_processor.process(level0, game_object);
-            if (!is_collides) game_object->update(time.asSeconds());
+            collision_processor.process(level0, game_object);
+            game_object->update(time.asSeconds());
             render.draw(window, game_object);
         }
 

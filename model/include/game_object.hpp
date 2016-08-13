@@ -10,6 +10,13 @@
 class GameObject
 {
 public:
+    struct CollisionInfo
+    {
+        bool ground_collision;
+        bool left_wall_collsion;
+        bool right_wall_collsion;
+    } m_collision_info;
+
     GameObject(void);
     virtual ~GameObject(void);
 
