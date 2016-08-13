@@ -12,7 +12,7 @@ option(BUILD_PROBIO_APP "" ON)
 if(SFML_INCLUDE_PATH STREQUAL "" OR SFML_LIB_PATH STREQUAL "")
     message(ERROR " you have to specify valid sfml path")
 else()
-	SET(SFML_AVAILABLE 1)
+    SET(SFML_AVAILABLE 1)
 endif()
 
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
@@ -24,33 +24,33 @@ endif()
 
 if(SFML_AVAILABLE)
     include_directories(${SFML_INCLUDE_PATH})
-	link_directories(${SFML_LIB_PATH})
-	
-	if(MSVC)
-	    set(WORKING_LIBS_D model.lib render.lib dialog_system.lib sfml-graphics-d.lib sfml-system-d.lib sfml-window-d.lib)
-		set(WORKING_LIBS model.lib render.lib dialog_system.lib sfml-graphics.lib sfml-system.lib sfml-window.lib)
-		set(SFML_LIBS_D sfml-graphics-d.lib sfml-system-d.lib sfml-window-d.lib)
-		set(SFML_LIBS sfml-graphics.lib sfml-system.lib sfml-window.lib)
-	else()
-	    set(WORKING_LIBS libmodel.so librender.so libdialog_system.so libsfml-graphics.so libsfml-system.so libsfml-window.so)
-		set(SFML_LIBS libsfml-graphics.so libsfml-system.so libsfml-window.so)
+    link_directories(${SFML_LIB_PATH})
+
+    if(MSVC)
+        set(WORKING_LIBS_D model.lib render.lib dialog_system.lib sfml-graphics-d.lib sfml-system-d.lib sfml-window-d.lib)
+        set(WORKING_LIBS model.lib render.lib dialog_system.lib sfml-graphics.lib sfml-system.lib sfml-window.lib)
+        set(SFML_LIBS_D sfml-graphics-d.lib sfml-system-d.lib sfml-window-d.lib)
+        set(SFML_LIBS sfml-graphics.lib sfml-system.lib sfml-window.lib)
+    else()
+        set(WORKING_LIBS libmodel.so librender.so libdialog_system.so libsfml-graphics.so libsfml-system.so libsfml-window.so)
+    set(SFML_LIBS libsfml-graphics.so libsfml-system.so libsfml-window.so)
     endif()
 endif()
 
 if(${BUILD_PROBIO_APP} MATCHES ON)
     include_directories(
-	    ${CMAKE_CURRENT_SOURCE_DIR}/model/include
-		${CMAKE_CURRENT_SOURCE_DIR}/render/include
-		${CMAKE_CURRENT_SOURCE_DIR}/dialog_system/include
-	)
-	
-	add_subdirectory(model)
-	add_subdirectory(render)
-	add_subdirectory(dialog_system)
-	add_subdirectory(probio_app)
-	
-	add_dependencies(render model)
-	
+        ${CMAKE_CURRENT_SOURCE_DIR}/model/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/render/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/dialog_system/include
+    )
+
+    add_subdirectory(model)
+    add_subdirectory(render)
+    add_subdirectory(dialog_system)
+    add_subdirectory(probio_app)
+
+    add_dependencies(render model)
+
 endif()
 
 if (${BUILD_MODEL} MATCHES ON AND ${BUILD_PROBIO_APP} MATCHES OFF)
