@@ -10,17 +10,18 @@
 class GameObject
 {
 public:
+    GameObject(void);
+    virtual ~GameObject(void);
+
+    virtual void update(float delta_time) = 0;
+
+public:
     struct CollisionInfo
     {
         bool ground_collision;
         bool left_wall_collsion;
         bool right_wall_collsion;
     } m_collision_info;
-
-    GameObject(void);
-    virtual ~GameObject(void);
-
-    virtual void update(float delta_time) = 0;
 
     sf::Vector2f m_velocity;
     sf::Vector2f m_acceleration;

@@ -5,8 +5,8 @@ set (BIN_NAME dialog_system)
 
 file (GLOB_RECURSE SRCS
     src/*.cpp
-	include/*.hpp
-	include/*.h
+    include/*.hpp
+    include/*.h
 )
 
 include_directories (
