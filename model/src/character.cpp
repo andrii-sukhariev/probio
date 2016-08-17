@@ -1,22 +1,21 @@
 #include "character.hpp"
 
-
-Character::Character(void)
+Character::~Character()
 {
-}
 
-Character::~Character(void)
-{
 }
 
 void Character::moveLeft(void)
 {
+    m_velocity.x = -5.f;
 }
 
 void Character::moveRight(void)
 {
+    m_velocity.x = 5.f;
 }
 
-void Character::jump(void)
+void Character::stop()
 {
+    m_velocity.x = 0.f;
 }

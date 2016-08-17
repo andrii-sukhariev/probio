@@ -37,3 +37,8 @@ int GameMap::height() const
 {
     return m_height;
 }
+
+bool GameMap::isInside(int x, int y) const
+{
+    return (x >= 0 && x < m_width && y >= 0 && y < m_height);
+}

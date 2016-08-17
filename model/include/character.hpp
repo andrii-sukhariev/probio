@@ -6,12 +6,12 @@
 class Character : public DynamicGameObject
 {
 public:
-    Character(void);
-    virtual ~Character(void);
+    Character(void) {}
+    virtual ~Character(void) override;
 
     virtual void moveLeft();
     virtual void moveRight();
-    virtual void jump();
+    virtual void stop();
 
 private:
 };

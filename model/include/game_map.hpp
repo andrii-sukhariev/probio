@@ -13,6 +13,7 @@ public:
     const int& at(int x, int y) const;
     int width() const;
     int height() const;
+    bool isInside(int x, int y) const;
 
 private:
     std::vector<int> m_map_data;

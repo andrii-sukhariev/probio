@@ -4,6 +4,7 @@
 #include "simple_render.hpp"
 #include "map_loader.hpp"
 #include "collision_processor.hpp"
+#include "character_input_handler.hpp"
 
 using namespace std;
 
@@ -23,8 +24,8 @@ int main()
     sf::RenderWindow window(sf::VideoMode(1024, 768), "Biosphere", sf::Style::Default, settings);
     SimpleRender render(game_object_size);
 
+    // creating game world
     GameWorld world;
-
     for (size_t y = 0; y < level0.height(); ++y)
     {
         for (size_t x = 0; x < level0.width(); ++x)
@@ -42,6 +43,7 @@ int main()
     character->m_position = sf::Vector2f(5, 5);
     world.add(character);
 
+    CharacterInputHandler character_input_handler(std::dynamic_pointer_cast<Character>(character));
     CollisionProcessor collision_processor;
 
     sf::Event event;
@@ -60,6 +62,8 @@ int main()
         sf::View view(sf::Vector2f(character->m_position.x * game_object_size.x, character->m_position.y * game_object_size.y), viewSize);
         view.zoom(scale);
         window.setView(view);
+
+        character_input_handler.handleInput(event);
 
         sf::Time time = clock.restart();
         window.clear(sf::Color::Black);

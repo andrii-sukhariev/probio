@@ -16,9 +16,7 @@ void CollisionProcessor::process(const GameMap& game_map, pGameObject game_objec
     int xr = static_cast<int>(game_object->m_position.x + 0.5f);
     int yr = std::ceil(game_object->m_position.y - 1.f);
 
-    if (!(xr >= 0 && xr < game_map.width() && yr >= 0 && yr < game_map.height())) return;
-
-    if (game_map.at(xr, yr) == 1)
+    if (game_map.isInside(xr, yr) && game_map.at(xr, yr) == 1 && game_object->m_velocity.y <= 0)
     {
         game_object->m_collision_info.ground_collision = true;
     }
