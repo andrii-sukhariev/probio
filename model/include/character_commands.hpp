@@ -20,3 +20,9 @@ class CommandStop : public Command
 public:
     virtual void execute(std::shared_ptr<Character> character) override;
 };
+
+class CommandJump: public Command
+{
+public:
+    virtual void execute(std::shared_ptr<Character> character) override;
+};

@@ -16,6 +16,7 @@ void CharacterInputHandler::bindStandardSettings()
     m_button_pressed_D = std::shared_ptr<Command>(new CommandMoveRight);
     m_button_released_A = std::shared_ptr<Command>(new CommandStop);
     m_button_released_D = std::shared_ptr<Command>(new CommandStop);
+    m_button_pressed_Space = std::shared_ptr<Command>(new CommandJump);
 }
 
 void CharacterInputHandler::handleInput(sf::Event event)
@@ -27,9 +28,15 @@ void CharacterInputHandler::handleInput(sf::Event event)
         {
             m_button_pressed_A->execute(m_character);
         }
+
         if (event.key.code == sf::Keyboard::D)
         {
             m_button_pressed_D->execute(m_character);
+        }
+
+        if (event.key.code == sf::Keyboard::Space)
+        {
+            m_button_pressed_Space->execute(m_character);
         }
     }
 
@@ -39,6 +46,7 @@ void CharacterInputHandler::handleInput(sf::Event event)
         {
             m_button_released_A->execute(m_character);
         }
+
         if (event.key.code == sf::Keyboard::D)
         {
             m_button_released_D->execute(m_character);

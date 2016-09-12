@@ -9,7 +9,7 @@ StaticGameObject::~StaticGameObject(void)
 {
 }
 
-void StaticGameObject::update(float delta_time)
+void StaticGameObject::update(float delta_time, const GameWorldParams& params)
 {
     return;
 }

@@ -1,15 +1,12 @@
 #include "simple_render.hpp"
 
-SimpleRender::SimpleRender(sf::Vector2f object_bounding_box) :
-    m_object_bounding_box(object_bounding_box)
+SimpleRender::SimpleRender()
 {
-
 }
 
 void SimpleRender::draw(sf::RenderWindow& window, std::shared_ptr<GameObject> game_object)
 {
-    sf::RectangleShape object_bounding_box(m_object_bounding_box);
-    sf::Vector2f position(game_object->m_position.x * m_object_bounding_box.x, game_object->m_position.y * m_object_bounding_box.y);
-    object_bounding_box.setPosition(position);
+    sf::RectangleShape object_bounding_box(game_object->m_object_box.size);
+    object_bounding_box.setPosition(game_object->m_object_box.tl_position);
     window.draw(object_bounding_box);
 }

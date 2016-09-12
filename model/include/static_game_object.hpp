@@ -8,6 +8,6 @@ public:
     StaticGameObject(void);
     virtual ~StaticGameObject(void);
 
-    virtual void update(float delta_time) override;
+    virtual void update(float delta_time, const GameWorldParams& params) override;
 };
 

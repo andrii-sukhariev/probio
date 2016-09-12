@@ -9,15 +9,54 @@ CollisionProcessor::~CollisionProcessor(void)
 {
 }
 
-void CollisionProcessor::process(const GameMap& game_map, pGameObject game_object)
+void CollisionProcessor::process(const TileTerrain& terrain, pGameObject game_object)
 {
-    game_object->m_collision_info.ground_collision = false;
+    game_object->m_collision_info.reset();
+    handleVerticalCollision(terrain, game_object);
+    handleHorizontalCollision(terrain, game_object);
+}
 
-    int xr = static_cast<int>(game_object->m_position.x + 0.5f);
-    int yr = std::ceil(game_object->m_position.y - 1.f);
+void CollisionProcessor::handleHorizontalCollision(const TileTerrain& terrain, pGameObject game_object)
+{
+    sf::Vector2f tl = game_object->m_object_box.tl_position;
+    sf::Vector2f sz = game_object->m_object_box.size;
 
-    if (game_map.isInside(xr, yr) && game_map.at(xr, yr) == 1 && game_object->m_velocity.y <= 0)
+    float tile_width = terrain.getTileSize().x;
+    float tile_height = terrain.getTileSize().y;
+
+    for (int y = tl.y / tile_height; y < (tl.y + sz.y) / tile_height; ++y)
     {
-        game_object->m_collision_info.ground_collision = true;
+        int x = (tl.x + sz.x) / tile_width;
+        if (terrain.isInside(x, y) && terrain.at(x, y) == 1 && game_object->m_velocity.x >= 0)
+        {
+            game_object->m_object_box.tl_position.x = x * tile_width - game_object->m_object_box.size.x;
+            game_object->m_collision_info.right_wall_collision = true;
+        }
+
+        x = tl.x / tile_width;
+        if (terrain.isInside(x, y) && terrain.at(x, y) == 1 && game_object->m_velocity.x <= 0)
+        {
+            game_object->m_object_box.tl_position.x = (x + 1) * tile_width;
+            game_object->m_collision_info.left_wall_collision = true;
+        }
+    }
+}
+
+void CollisionProcessor::handleVerticalCollision(const TileTerrain& terrain, pGameObject game_object)
+{
+    sf::Vector2f tl = game_object->m_object_box.tl_position;
+    sf::Vector2f sz = game_object->m_object_box.size;
+
+    float tile_width = terrain.getTileSize().x;
+    float tile_height = terrain.getTileSize().y;
+
+    for (int x = tl.x / tile_width; x < (tl.x + sz.x) / tile_width; ++x)
+    {
+        int y = (tl.y + sz.y) / tile_height;
+        if (terrain.isInside(x, y) && terrain.at(x, y) == 1 && game_object->m_velocity.y >= 0)
+        {
+            game_object->m_object_box.tl_position.y = y * tile_height - game_object->m_object_box.size.y;
+            game_object->m_collision_info.ground_collision = true;
+        }
     }
 }

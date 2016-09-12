@@ -14,3 +14,8 @@ void CommandStop::execute(std::shared_ptr<Character> character)
 {
     character->stop();
 }
+
+void CommandJump::execute(std::shared_ptr<Character> character)
+{
+    character->jump();
+}
