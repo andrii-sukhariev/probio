@@ -24,6 +24,6 @@ void Character::jump()
 {
     if (m_collision_info.ground_collision)
     {
-        m_velocity.y = -50.f;
+        m_velocity.y = -55.f;
     }
 }

@@ -5,7 +5,7 @@
 #include "game_world_params.hpp"
 #include "collision_processor.hpp"
 
-class GameWorld
+class GameWorld : public std::enable_shared_from_this<GameWorld>
 {
 public:
     GameWorld();
@@ -17,6 +17,8 @@ public:
     const std::vector<pGameObject>& getGameObjects() const { return m_game_objects; }
 
     pGameObject getMainCharacter();
+
+    void handleTerrainCollision(pGameObject game_object, sf::Vector2f translation);
 
     void setMainCharacter(pGameObject main_character);
 

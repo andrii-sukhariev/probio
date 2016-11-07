@@ -26,11 +26,13 @@ void CharacterInputHandler::handleInput(sf::Event event)
     {
         if (event.key.code == sf::Keyboard::A)
         {
+            m_character->stop();
             m_button_pressed_A->execute(m_character);
         }
 
         if (event.key.code == sf::Keyboard::D)
         {
+            m_character->stop();
             m_button_pressed_D->execute(m_character);
         }
 

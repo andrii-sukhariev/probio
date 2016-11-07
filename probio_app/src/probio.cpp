@@ -8,8 +8,6 @@
 
 using namespace std;
 
-const sf::Vector2f game_object_size(10.f, 10.f);
-
 int main()
 {
     TileTerrain level0;
@@ -29,8 +27,8 @@ int main()
     view_size.y *= orient;
     SimpleRender render;
 
-    GameWorld world;
-    world.setTerrain(level0);
+    std::shared_ptr<GameWorld> world = std::make_shared<GameWorld>();
+    world->setTerrain(level0);
 
     for (size_t y = 0; y < level0.height(); ++y)
     {
@@ -38,18 +36,18 @@ int main()
         {
             if (level0.at(x, y) == 1)
             {
-                std::shared_ptr<GameObject> game_object(new StaticGameObject());
+                std::shared_ptr<GameObject> game_object = make_shared<StaticGameObject>();
                 game_object->m_object_box.tl_position = level0.getTilePosition(x, y);
                 game_object->m_object_box.size = level0.getTileSize();
-                world.add(game_object);
+                world->add(game_object);
             }
         }
     }
 
-    std::shared_ptr<GameObject> character(new Character());
+    std::shared_ptr<GameObject> character = std::make_shared<Character>();
     character->m_object_box.tl_position = level0.getTilePosition(5, 3);
     character->m_object_box.size = sf::Vector2f(8, 12);
-    world.setMainCharacter(character);
+    world->setMainCharacter(character);
 
     CharacterInputHandler character_input_handler(std::dynamic_pointer_cast<Character>(character));
 
@@ -73,9 +71,9 @@ int main()
         sf::Time time = clock.restart();
         window.clear(sf::Color::Black);
 
-        world.update(time.asSeconds());
+        world->update(time.asSeconds());
 
-        const std::vector<pGameObject>& game_objects = world.getGameObjects();
+        const std::vector<pGameObject>& game_objects = world->getGameObjects();
         for (auto game_object : game_objects)
         {
             render.draw(window, game_object);
