@@ -7,9 +7,7 @@
 class SimpleRender
 {
 public:
-    SimpleRender(sf::Vector2f object_bounding_box);
-    void draw(sf::RenderWindow& window, std::shared_ptr<GameObject> game_object);
+    SimpleRender();
 
-private:
-    sf::Vector2f m_object_bounding_box;
+    void draw(sf::RenderWindow& window, std::shared_ptr<GameObject> game_object);
 };

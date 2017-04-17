@@ -1,0 +1,7 @@
+#name MOVE_RIGHT
+#texture E:/Work/Projects/probio/resources/bomberman_various_sheet.png
+#duration 0.2
+0 90 0 18 21
+1 90 30 18 21
+2 90 0 18 21
+3 90 60 18 21

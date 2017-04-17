@@ -1,4 +1,5 @@
 #include "dynamic_game_object.hpp"
+#include "game_world.hpp"
 
 DynamicGameObject::DynamicGameObject(void)
 {
@@ -8,15 +9,26 @@ DynamicGameObject::~DynamicGameObject(void)
 {
 }
 
-void DynamicGameObject::update(float delta_time)
+void DynamicGameObject::update(float delta_time, const GameWorldParams& params)
 {
-    m_velocity += (m_acceleration + params.m_gravity) * delta_time;
+    animation_graph->getActiveAnimation()->update(delta_time);
 
-    if (m_collision_info.ground_collision)
+    sf::Vector2f acc = acceleration + static_cast<float>(!collision_info.ground_collision) * params.m_gravity;
+    sf::Vector2f vel = acc * delta_time;
+    sf::Vector2f translation = (velocity + vel) * delta_time;
+
+    game_world.lock()->handleTerrainCollision(std::dynamic_pointer_cast<GameObject>(shared_from_this()), translation);
+
+    if (collision_info.ground_collision || collision_info.ceiling_collision)
     {
-        m_position.y = std::ceil(m_position.y);
-        m_velocity.y = 0;
+        translation.y = 0;
     }
 
-    m_position += m_velocity * delta_time;
+    if (collision_info.left_wall_collision || collision_info.right_wall_collision)
+    {
+        translation.x = 0;
+    }
+
+    velocity += vel;
+    object_box.tl_position += translation;
 }
