@@ -15,13 +15,20 @@ public:
     virtual void execute(std::shared_ptr<Character> character) override;
 };
 
-class CommandStop : public Command
+class CommandMoveUp : public Command
 {
 public:
     virtual void execute(std::shared_ptr<Character> character) override;
 };
 
-class CommandJump: public Command
+class CommandMoveDown : public Command
+{
+public:
+    virtual void execute(std::shared_ptr<Character> character) override;
+};
+
+
+class CommandStop : public Command
 {
 public:
     virtual void execute(std::shared_ptr<Character> character) override;

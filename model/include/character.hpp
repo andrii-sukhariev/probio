@@ -14,9 +14,12 @@ public:
 
     virtual void moveRight();
 
-    virtual void stop();
+    virtual void moveUp();
 
-    virtual void jump();
+    virtual void moveDown();
+
+
+    virtual void stop();
 
 private:
 };

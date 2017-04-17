@@ -14,9 +14,13 @@ void CharacterInputHandler::bindStandardSettings()
 {
     m_button_pressed_A = std::shared_ptr<Command>(new CommandMoveLeft);
     m_button_pressed_D = std::shared_ptr<Command>(new CommandMoveRight);
+    m_button_pressed_W = std::shared_ptr<Command>(new CommandMoveUp);
+    m_button_pressed_S = std::shared_ptr<Command>(new CommandMoveDown);
+
     m_button_released_A = std::shared_ptr<Command>(new CommandStop);
     m_button_released_D = std::shared_ptr<Command>(new CommandStop);
-    m_button_pressed_Space = std::shared_ptr<Command>(new CommandJump);
+    m_button_released_W = std::shared_ptr<Command>(new CommandStop);
+    m_button_released_S = std::shared_ptr<Command>(new CommandStop);
 }
 
 void CharacterInputHandler::handleInput(sf::Event event)
@@ -26,19 +30,26 @@ void CharacterInputHandler::handleInput(sf::Event event)
     {
         if (event.key.code == sf::Keyboard::A)
         {
-            m_character->stop();
+            //m_character->stop();
             m_button_pressed_A->execute(m_character);
         }
 
         if (event.key.code == sf::Keyboard::D)
         {
-            m_character->stop();
+            //m_character->stop();
             m_button_pressed_D->execute(m_character);
         }
 
-        if (event.key.code == sf::Keyboard::Space)
+        if (event.key.code == sf::Keyboard::W)
         {
-            m_button_pressed_Space->execute(m_character);
+            //m_character->stop();
+            m_button_pressed_W->execute(m_character);
+        }
+
+        if (event.key.code == sf::Keyboard::S)
+        {
+            //m_character->stop();
+            m_button_pressed_S->execute(m_character);
         }
     }
 
@@ -52,6 +63,16 @@ void CharacterInputHandler::handleInput(sf::Event event)
         if (event.key.code == sf::Keyboard::D)
         {
             m_button_released_D->execute(m_character);
+        }
+
+        if (event.key.code == sf::Keyboard::W)
+        {
+            m_button_released_W->execute(m_character);
+        }
+
+        if (event.key.code == sf::Keyboard::S)
+        {
+            m_button_released_S->execute(m_character);
         }
     }
 }

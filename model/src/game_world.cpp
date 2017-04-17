@@ -21,7 +21,7 @@ void GameWorld::add(pGameObject game_object)
 {
     m_game_objects.push_back(game_object);
     auto shared_world = shared_from_this();
-    game_object->m_game_world = shared_from_this();
+    game_object->game_world = shared_from_this();
 }
 
 pGameObject GameWorld::getMainCharacter()

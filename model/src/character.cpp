@@ -1,5 +1,10 @@
 #include "character.hpp"
 
+namespace
+{
+    float VELOCITY = 50.f;
+}
+
 Character::~Character()
 {
 
@@ -7,23 +12,30 @@ Character::~Character()
 
 void Character::moveLeft(void)
 {
-    m_velocity.x = -50.f;
+    velocity.x = -VELOCITY;
+    animation_graph->update("LEFT");
 }
 
 void Character::moveRight(void)
 {
-    m_velocity.x = 50.f;
+    velocity.x = VELOCITY;
+    animation_graph->update("RIGHT");
+}
+
+void Character::moveUp(void)
+{
+    velocity.y = -VELOCITY;
+    animation_graph->update("UP");
+}
+
+void Character::moveDown(void)
+{
+    velocity.y = VELOCITY;
+    animation_graph->update("DOWN");
 }
 
 void Character::stop()
 {
-    m_velocity.x = 0.f;
-}
-
-void Character::jump()
-{
-    if (m_collision_info.ground_collision)
-    {
-        m_velocity.y = -55.f;
-    }
+    velocity.x = 0.f;
+    velocity.y = 0.f;
 }

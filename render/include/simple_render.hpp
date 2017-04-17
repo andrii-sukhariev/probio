@@ -8,5 +8,6 @@ class SimpleRender
 {
 public:
     SimpleRender();
+
     void draw(sf::RenderWindow& window, std::shared_ptr<GameObject> game_object);
 };

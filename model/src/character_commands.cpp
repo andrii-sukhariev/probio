@@ -10,12 +10,17 @@ void CommandMoveRight::execute(std::shared_ptr<Character> character)
     character->moveRight();
 }
 
+void CommandMoveUp::execute(std::shared_ptr<Character> character)
+{
+    character->moveUp();
+}
+
+void CommandMoveDown::execute(std::shared_ptr<Character> character)
+{
+    character->moveDown();
+}
+
 void CommandStop::execute(std::shared_ptr<Character> character)
 {
     character->stop();
-}
-
-void CommandJump::execute(std::shared_ptr<Character> character)
-{
-    character->jump();
 }
